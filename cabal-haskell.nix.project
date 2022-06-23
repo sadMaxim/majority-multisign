@@ -31,10 +31,10 @@ source-repository-package
     plutus-golden
     plutus-laws
     plutus-numeric
-    plutus-pretty
+    -- plutus-pretty
     plutus-size-check
     quickcheck-plutus-instances
-    tasty-plutus
+    --tasty-plutus
 
 constraints:
   docopt >= 0.7.0.6,

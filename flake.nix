@@ -71,7 +71,7 @@
               [ pkgs.cabal-install pkgs.hlint pkgs.haskellPackages.fourmolu ];
 
             additional = ps: [
-              ps.tasty-plutus
+              #ps.tasty-plutus
               ps.quickcheck-plutus-instances
               ps.plutus-collection
               ps.plutus-laws
