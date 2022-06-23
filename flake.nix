@@ -72,10 +72,10 @@
 
             additional = ps: [
               #ps.tasty-plutus
-              ps.quickcheck-plutus-instances
-              ps.plutus-collection
-              ps.plutus-laws
-              ps.plutus-golden
+              #ps.quickcheck-plutus-instances
+              #ps.plutus-collection
+              #ps.plutus-laws
+              #ps.plutus-golden
 
               ps.base-deriving-via
               ps.cardano-addresses

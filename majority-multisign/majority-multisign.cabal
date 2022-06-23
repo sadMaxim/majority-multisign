@@ -68,12 +68,12 @@ library
     , lens               ^>=4.19.2
     , openapi3           <3.2
     , playground-common
-    , plutus-collection  >=1.0 && <2.2
+    --, plutus-collection  >=1.0 && <2.2
     , plutus-contract
     , plutus-ledger
     , plutus-ledger-api
     , plutus-ledger-constraints
-    , plutus-numeric
+    --, plutus-numeric
     , plutus-pab
     --, plutus-pretty
     , plutus-tx
@@ -123,4 +123,4 @@ library
 --    , tasty-quickcheck    ^>=0.10.1.2
 --    , text
 
-  hs-source-dirs: test
+--  hs-source-dirs: test

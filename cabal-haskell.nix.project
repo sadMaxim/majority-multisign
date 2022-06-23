@@ -19,33 +19,33 @@ source-repository-package
   tag: 7f543e21d4945a2024e46c572303b9c1684a5832
 
 -- New testing functionality
-source-repository-package
-  type: git
-  location: https://github.com/Liqwid-Labs/plutus-extra.git
-  tag: b456bb86ee809eccf6b79ea99d95b318d9a70c95
-  subdir:
-    plutus-collection
-    plutus-context-builder
-    plutus-deriving
-    plutus-extra
-    plutus-golden
-    plutus-laws
-    plutus-numeric
-    -- plutus-pretty
-    plutus-size-check
-    quickcheck-plutus-instances
-    --tasty-plutus
-
-constraints:
-  docopt >= 0.7.0.6,
-  jwt >= 0.11,
-
-allow-newer:
-  MissingH:random,
-  size-based:template-haskell,
-  plutus-pab-executables:docopt,
-  plutus-size-check:cardano-api,
-  tasty-plutus:all,
+--source-repository-package
+--  type: git
+--  location: https://github.com/Liqwid-Labs/plutus-extra.git
+--  tag: b456bb86ee809eccf6b79ea99d95b318d9a70c95
+--  subdir:
+--    plutus-collection
+--    plutus-context-builder
+--    plutus-deriving
+--    plutus-extra
+--    plutus-golden
+--    plutus-laws
+--    plutus-numeric
+--    -- plutus-pretty
+--    plutus-size-check
+--    quickcheck-plutus-instances
+--    --tasty-plutus
+--
+--constraints:
+--  docopt >= 0.7.0.6,
+--  jwt >= 0.11,
+--
+--allow-newer:
+--  MissingH:random,
+--  size-based:template-haskell,
+--  plutus-pab-executables:docopt,
+--  plutus-size-check:cardano-api,
+--  tasty-plutus:all,
 
 source-repository-package
   type: git
