@@ -8,3 +8,4 @@ write-ghc-environment-files: never
 -- Always build tests and benchmarks.
 tests: true
 benchmarks: true
+documentation: false
