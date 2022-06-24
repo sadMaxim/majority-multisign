@@ -9,3 +9,5 @@ write-ghc-environment-files: never
 tests: true
 benchmarks: true
 documentation: false
+haddoc-html: false
+
