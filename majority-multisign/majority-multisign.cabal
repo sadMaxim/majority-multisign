@@ -54,7 +54,7 @@ common lang
 library
   import:          lang
   exposed-modules:
-    MajorityMultiSign
+    --MajorityMultiSign
     MajorityMultiSign.Contracts
     MajorityMultiSign.OnChain
     MajorityMultiSign.Schema
@@ -73,7 +73,7 @@ library
     , plutus-ledger
     , plutus-ledger-api
     , plutus-ledger-constraints
-    , plutus-numeric
+    --, plutus-numeric
     , plutus-pab
     --, plutus-pretty
     , plutus-tx

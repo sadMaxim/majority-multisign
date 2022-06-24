@@ -30,8 +30,8 @@ import Plutus.V1.Ledger.Api (TxOut (txOutDatumHash, txOutValue))
 import Plutus.V1.Ledger.Contexts (TxInInfo (txInInfoResolved), TxInfo (txInfoInputs), findDatumHash)
 import Plutus.V1.Ledger.Value (assetClassValueOf)
 import PlutusTx qualified
-import PlutusTx.List.Natural qualified as Natural
-import PlutusTx.Natural (Natural)
+--import PlutusTx.List.Natural qualified as Natural
+--import PlutusTx.Natural (Natural)
 import PlutusTx.Prelude
 
 {-# INLINEABLE mkValidator #-}
@@ -107,23 +107,23 @@ checkMultisigned MajorityMultiSignIdentifier {asset} ctx =
 {-# INLINEABLE isSufficientlySigned #-}
 isSufficientlySigned :: MajorityMultiSignRedeemer -> MajorityMultiSignDatum -> ScriptContext -> Bool
 isSufficientlySigned red dat@MajorityMultiSignDatum {signers} ctx =
-  traceIfFalse "Not enough signatures" (Natural.length signersPresent >= minSigners)
+  traceIfFalse "Not enough signatures" (length signersPresent >= minSigners)
     && traceIfFalse "Missing signatures from new keys" (hasNewSignatures red dat ctx)
   where
     signersPresent, signersUnique :: [PaymentPubKeyHash]
     signersPresent = filter (txSignedBy (scriptContextTxInfo ctx) . unPaymentPubKeyHash) signersUnique
     signersUnique = nub signers
-    minSigners :: Natural
+    minSigners :: Integer 
     minSigners = getMinSigners signersUnique
 
 -- | Checks the validator datum fits under the size limit
 {-# INLINEABLE isUnderSizeLimit #-}
 isUnderSizeLimit :: MajorityMultiSignRedeemer -> MajorityMultiSignDatum -> Bool
 isUnderSizeLimit UseSignaturesAct MajorityMultiSignDatum {signers} =
-  traceIfFalse "Datum too large" (Natural.length signers <= maximumSigners)
+  traceIfFalse "Datum too large" (length signers <= maximumSigners)
 isUnderSizeLimit (UpdateKeysAct keys) MajorityMultiSignDatum {signers} =
-  traceIfFalse "Datum too large" (Natural.length signers <= maximumSigners)
-    && traceIfFalse "Redeemer too large" (Natural.length keys <= maximumSigners)
+  traceIfFalse "Datum too large" (length signers <= maximumSigners)
+    && traceIfFalse "Redeemer too large" (length keys <= maximumSigners)
 
 inst :: MajorityMultiSignValidatorParams -> TypedScripts.TypedValidator MajorityMultiSign
 inst params =

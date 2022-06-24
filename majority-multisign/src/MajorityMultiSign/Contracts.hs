@@ -68,9 +68,9 @@ import Plutus.V1.Ledger.Api (
  )
 import Plutus.V1.Ledger.Value (Value, assetClass, assetClassValue, assetClassValueOf)
 import PlutusTx (toBuiltinData)
-import PlutusTx.List.Natural qualified as Natural
-import PlutusTx.Natural (Natural)
-import PlutusTx.Numeric.Extra ((^-))
+--import PlutusTx.List.Natural qualified as Natural
+--import PlutusTx.Natural (Natural)
+--import PlutusTx.Numeric.Extra ((^-))
 import PlutusTx.Prelude hiding (foldMap, (<>))
 
 -- | Add min lovelace to a value
@@ -112,8 +112,8 @@ initialize pkh dat = do
  of keys of exactly the given length.
  TODO: Optimise this, there is no need to generate all subsets and filter.
 -}
-combinations :: Natural -> [a] -> [[a]]
-combinations minSigCount ps = filter ((== minSigCount) . Natural.length) $ subsequences ps
+combinations :: Integer -> [a] -> [[a]]
+combinations minSigCount ps = filter ((== minSigCount) . length) $ subsequences ps
 
 -- | Returns all possible allowed combinations of keys and of missing keys.
 signerCombinations :: [PaymentPubKeyHash] -> ([[PaymentPubKeyHash]], [[PaymentPubKeyHash]])
@@ -121,7 +121,7 @@ signerCombinations signerList = (keyOptions, missingKeyOptions)
   where
     keyOptions = combinations (getMinSigners signerList) signerList
     missingKeyOptions = combinations maxMissingKeys signerList
-    maxMissingKeys = succ (Natural.length signerList ^- getMinSigners signerList)
+    maxMissingKeys = succ (let diff = length signerList - getMinSigners signerList in if diff > 0 then diff else 0)
 
 {- | Creates the constraint for signing, this scales as `combinations` does.
  See https://github.com/mlabs-haskell/majority-multisign/issues/14 for the
@@ -156,7 +156,7 @@ submitSignedTxConstraintsWith mms pubKeys lookups tx = do
 
   unless (sufficientPubKeys pubKeys [] keyOptions) $
     throwError $ OtherContractError "Insufficient pub keys given"
-  unless (Natural.length pubKeys <= maximumSigners) $
+  unless (length pubKeys <= maximumSigners) $
     throwError $ OtherContractError "Too many signers given"
 
   utx <- prepareTxForSigning @a mms lookups' tx
@@ -228,7 +228,7 @@ setSignatures SetSignaturesParams {mmsIdentifier, newKeys, pubKeys} = do
 
   unless (sufficientPubKeys pubKeys newKeysDiff keyOptions) $
     throwError $ OtherContractError "Insufficient pub keys given"
-  unless (Natural.length newKeys <= maximumSigners) $
+  unless (length newKeys <= maximumSigners) $
     throwError $ OtherContractError "Too many new signers given"
 
   ledgerTx <- submitTxConstraintsWith @Any lookups tx
