@@ -45,7 +45,7 @@ import Plutus.Contract as Contract
 import Plutus.Contract.Wallet (getUnspentOutput)
 import Plutus.Contracts.Scripts1 (scriptCurrencySymbol)
 import Schema (ToSchema)
-import Prelude  
+import Prelude qualified as Haskell  
 import PlutusTx (UnsafeFromData (unsafeFromBuiltinData))
 import PlutusTx.Prelude (check)
 
