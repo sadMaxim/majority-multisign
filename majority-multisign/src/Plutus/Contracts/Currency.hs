@@ -45,9 +45,9 @@ import Plutus.Contract as Contract
 import Plutus.Contract.Wallet (getUnspentOutput)
 import Plutus.Contracts.Scripts1 (scriptCurrencySymbol)
 import Schema (ToSchema)
-
-import Prelude (Semigroup (..))
-import Prelude qualified as Haskell
+import Prelude  
+import PlutusTx (UnsafeFromData (unsafeFromBuiltinData))
+import PlutusTx.Prelude (check)
 
 {- HLINT ignore "Use uncurry" -}
 
@@ -103,9 +103,14 @@ checkPolicy c@(OneShotCurrency (refHash, refIdx) _) _ ctx@V.ScriptContext{V.scri
 
 curPolicy :: OneShotCurrency -> MintingPolicy
 curPolicy cur = mkMintingPolicyScript $
-    $$(PlutusTx.compile [|| \c -> Scripts.mkUntypedMintingPolicy (checkPolicy c) ||])
+    $$(PlutusTx.compile [|| \c -> mkUntypedMintingPolicy (checkPolicy c) ||])
         `PlutusTx.applyCode`
             PlutusTx.liftCode cur
+
+
+{-# INLINABLE mkUntypedMintingPolicy #-}
+mkUntypedMintingPolicy f r p =
+    check $ f (unsafeFromBuiltinData r) (unsafeFromBuiltinData p)
 
 {- note [Obtaining the currency symbol]
 
