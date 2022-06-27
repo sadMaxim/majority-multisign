@@ -78,7 +78,7 @@ library
     , plutus-ledger-api
     , plutus-ledger-constraints
     --, plutus-numeric
-    , plutus-pab
+    --, plutus-pab
     --, plutus-pretty
     , plutus-tx
     , plutus-tx-plugin
