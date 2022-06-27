@@ -54,7 +54,7 @@ common lang
 library
   import:          lang
   exposed-modules:
-    --MajorityMultiSign
+    Plutus.Contracts.Currency
     MajorityMultiSign.Contracts
     MajorityMultiSign.OnChain
     MajorityMultiSign.Schema
@@ -78,7 +78,8 @@ library
     --, plutus-pretty
     , plutus-tx
     , plutus-tx-plugin
-    , plutus-use-cases
+    , plutus-script-utils
+    --, plutus-use-cases
     , prettyprinter      ^>=1.7.0
     , recursion-schemes  >=5 && <6
     , row-types          ^>=1.0.1.0
