@@ -30,6 +30,7 @@ import Data.ByteString.Short qualified as SBS
 import Plutus.V1.Ledger.Api qualified as PV1
 import Plutus.V1.Ledger.Scripts qualified as PV1
 import PlutusTx.Builtins qualified as Builtins
+import Prelude 
 
 -- | Hash a 'PV1.Datum builtin data.
 datumHash :: PV1.Datum -> PV1.DatumHash
