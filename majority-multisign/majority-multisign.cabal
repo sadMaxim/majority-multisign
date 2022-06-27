@@ -54,7 +54,7 @@ common lang
 library
   import:          lang
   exposed-modules:
-    Plutus.Script.Utils.V1.Scripts
+    Plutus.Contracts.Scripts1
     Plutus.Contracts.Currency
     MajorityMultiSign.Contracts
     MajorityMultiSign.OnChain
