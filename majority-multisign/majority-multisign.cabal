@@ -85,6 +85,7 @@ library
     , prettyprinter      ^>=1.7.0
     , recursion-schemes  >=5 && <6
     , row-types          ^>=1.0.1.0
+    , serialise
     , text
 
   hs-source-dirs:  src
