@@ -50,6 +50,7 @@ import Prelude (Semigroup (..))
 import PlutusTx (UnsafeFromData (unsafeFromBuiltinData))
 import PlutusTx.Prelude (check)
 
+
 {- HLINT ignore "Use uncurry" -}
 
 -- | A currency that can be created exactly once
@@ -110,6 +111,7 @@ curPolicy cur = mkMintingPolicyScript $
 
 
 {-# INLINABLE mkUntypedMintingPolicy #-}
+mkUntypedMintingPolicy :: (UnsafeFromData t1, UnsafeFromData t2) => (t1 -> t2 -> Bool) -> BuiltinData -> BuiltinData -> ()
 mkUntypedMintingPolicy f r p =
     check $ f (unsafeFromBuiltinData r) (unsafeFromBuiltinData p)
 
