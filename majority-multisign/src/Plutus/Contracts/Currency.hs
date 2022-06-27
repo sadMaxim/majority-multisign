@@ -48,7 +48,7 @@ import Schema (ToSchema)
 import Prelude qualified as Haskell  
 import Prelude (Semigroup (..))
 import PlutusTx (UnsafeFromData (unsafeFromBuiltinData))
-import PlutusTx.Prelude (check)
+--import PlutusTx.Prelude (check)
 
 
 {- HLINT ignore "Use uncurry" -}
