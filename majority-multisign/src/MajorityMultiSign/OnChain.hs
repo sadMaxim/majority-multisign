@@ -135,7 +135,7 @@ inst params =
 
 type WrappedValidatorType = PlutusTx.BuiltinData -> PlutusTx.BuiltinData -> PlutusTx.BuiltinData -> ()
 
-{-# INLINABLE wrapValidator #-}
+{-# INLINABLE wrapValidator' #-}
 wrapValidator'
     :: forall d r
     . (PlutusTx.UnsafeFromData d, PlutusTx.UnsafeFromData r)
