@@ -105,14 +105,14 @@ checkPolicy c@(OneShotCurrency (refHash, refIdx) _) _ ctx@V.ScriptContext{V.scri
 
 curPolicy :: OneShotCurrency -> MintingPolicy
 curPolicy cur = mkMintingPolicyScript $
-    $$(PlutusTx.compile [|| \c -> mkUntypedMintingPolicy (checkPolicy c) ||])
+    $$(PlutusTx.compile [|| \c -> mkUntypedMintingPolicy' (checkPolicy c) ||])
         `PlutusTx.applyCode`
             PlutusTx.liftCode cur
 
 
-{-# INLINABLE mkUntypedMintingPolicy #-}
-mkUntypedMintingPolicy :: (UnsafeFromData t1, UnsafeFromData t2) => (t1 -> t2 -> Bool) -> BuiltinData -> BuiltinData -> ()
-mkUntypedMintingPolicy f r p =
+{-# INLINABLE mkUntypedMintingPolicy' #-}
+mkUntypedMintingPolicy' :: (UnsafeFromData t1, UnsafeFromData t2) => (t1 -> t2 -> Bool) -> BuiltinData -> BuiltinData -> ()
+mkUntypedMintingPolicy' f r p =
     check $ f (unsafeFromBuiltinData r) (unsafeFromBuiltinData p)
 
 {- note [Obtaining the currency symbol]
