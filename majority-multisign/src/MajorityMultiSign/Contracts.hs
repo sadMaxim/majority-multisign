@@ -23,6 +23,7 @@ import Data.Text (Text)
 import Data.Void (Void)
 import Ledger (AssetClass, CardanoTx, ChainIndexTxOut, PaymentPubKey, PaymentPubKeyHash, TokenName, TxOutRef, paymentPubKeyHash, validatorHash)
 import Ledger qualified
+import Ledger.Ada (lovelaceValueOf)
 import Ledger.Constraints (ScriptLookups, TxConstraints, UnbalancedTx)
 import Ledger.Constraints qualified as Constraints
 import Ledger.Scripts qualified as Scripts
@@ -59,7 +60,6 @@ import Plutus.Contract (
  )
 import Plutus.Contract.Types (mapError)
 import Plutus.Contracts.Currency (CurrencyError (CurContractError), currencySymbol, mintContract)
-import Ledger.Ada (lovelaceValueOf)
 import Plutus.V1.Ledger.Api (
   Datum (Datum, getDatum),
   Redeemer (Redeemer),
@@ -68,6 +68,7 @@ import Plutus.V1.Ledger.Api (
  )
 import Plutus.V1.Ledger.Value (Value, assetClass, assetClassValue, assetClassValueOf)
 import PlutusTx (toBuiltinData)
+
 --import PlutusTx.List.Natural qualified as Natural
 --import PlutusTx.Natural (Natural)
 --import PlutusTx.Numeric.Extra ((^-))

@@ -26,6 +26,7 @@ import Data.Aeson (FromJSON, ToJSON, (.:), (.=))
 import Data.Aeson qualified as Aeson
 import Data.Aeson.Extras (encodeByteString)
 import Data.Functor.Foldable (Fix (Fix))
+
 --import Data.OpenApi.Schema qualified as OpenApi
 import Data.Text qualified as Text
 import Data.Text.Encoding (decodeUtf8)
@@ -36,6 +37,7 @@ import Plutus.Contract (Endpoint, type (.\/))
 import Plutus.V1.Ledger.Value (AssetClass, CurrencySymbol (CurrencySymbol), TokenName (TokenName))
 import PlutusTx qualified
 import PlutusTx.Builtins (divideInteger)
+
 --import PlutusTx.List.Natural qualified as Natural
 --import PlutusTx.NatRatio (NatRatio, ceiling, frac, fromNatural)
 --import PlutusTx.Natural (Natural, nat)
@@ -46,7 +48,7 @@ import Schema (
   ToArgument (toArgument),
   ToSchema (toSchema),
  )
-import Prelude (Eq, Show, (<$>) )
+import Prelude (Eq, Show, (<$>))
 
 --{-# INLINEABLE signReq #-}
 --
@@ -58,13 +60,13 @@ import Prelude (Eq, Show, (<$>) )
 
 -- | Maximum number of signers allowed
 maximumSigners :: Integer
-maximumSigners =  10 
+maximumSigners = 10
 
 {-# INLINEABLE getMinSigners #-}
 
 -- | Given a list of Signers, gets the minimum number of signers needed for a transaction to be valid
-getMinSigners :: [a] -> Integer 
-getMinSigners = (\len -> divideInteger len 2)  . length
+getMinSigners :: [a] -> Integer
+getMinSigners = (\len -> divideInteger len 2) . length
 
 -- | Data type used to identify a majority multisign validator (the asset needed to call it)
 newtype MajorityMultiSignIdentifier = MajorityMultiSignIdentifier
