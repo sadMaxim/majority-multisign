@@ -59,7 +59,7 @@ import Plutus.Contract (
  )
 import Plutus.Contract.Types (mapError)
 import Plutus.Contracts.Currency (CurrencyError (CurContractError), currencySymbol, mintContract)
-import Plutus.V1.Ledger.Ada (lovelaceValueOf)
+import Ledger.Ada (lovelaceValueOf)
 import Plutus.V1.Ledger.Api (
   Datum (Datum, getDatum),
   Redeemer (Redeemer),
