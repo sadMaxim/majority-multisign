@@ -140,7 +140,12 @@ validatorHash :: MajorityMultiSignValidatorParams -> Scripts.ValidatorHash
 validatorHash = TypedScripts.validatorHash . inst
 
 validatorAddress :: MajorityMultiSignValidatorParams -> Address
-validatorAddress = Ledger.scriptAddress . validator
+validatorAddress = scriptAddress' . validator
+
+{-# INLINABLE scriptAddress' #-}
+-- | The address that should be used by a transaction output locked by the given validator script.
+scriptAddress' :: Validator -> Address
+scriptAddress' validator = Address (ScriptCredential (validatorHash validator)) Nothing
 
 -- | Gets the validator from an identifier
 validatorFromIdentifier :: MajorityMultiSignIdentifier -> Scripts.Validator
