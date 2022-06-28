@@ -13,7 +13,7 @@ module MajorityMultiSign.OnChain (
 ) where
 
 import Data.List.Extra (firstJust)
-import Ledger (Address, Datum (Datum), PaymentPubKeyHash (unPaymentPubKeyHash), ScriptContext (scriptContextTxInfo), txSignedBy)
+import Ledger (Address, Datum (Datum), PaymentPubKeyHash (unPaymentPubKeyHash), ScriptContext (scriptContextTxInfo), txSignedBy, ScriptCredential)
 import Ledger qualified
 import Ledger.Scripts qualified as Scripts
 import Ledger.Typed.Scripts qualified as TypedScripts
@@ -144,7 +144,7 @@ validatorAddress = scriptAddress' . validator
 
 {-# INLINABLE scriptAddress' #-}
 -- | The address that should be used by a transaction output locked by the given validator script.
-scriptAddress' :: Validator -> Address
+scriptAddress' :: Scripts.Validator -> Address
 scriptAddress' validator = Address (ScriptCredential (validatorHash validator)) Nothing
 
 -- | Gets the validator from an identifier
