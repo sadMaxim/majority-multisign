@@ -155,7 +155,7 @@ validatorAddress = scriptAddress' . validator
 {-# INLINABLE scriptAddress' #-}
 -- | The address that should be used by a transaction output locked by the given validator script.
 scriptAddress' :: Scripts.Validator -> Address
-scriptAddress' validator = Ledger.Address (ScriptCredential (validatorHash validator)) Nothing
+scriptAddress' validator = Ledger.Address (ScriptCredential (Scripts.validatorHash validator)) Nothing
 
 -- | Gets the validator from an identifier
 validatorFromIdentifier :: MajorityMultiSignIdentifier -> Scripts.Validator
