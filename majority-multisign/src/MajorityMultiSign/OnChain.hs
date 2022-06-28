@@ -131,7 +131,17 @@ inst params =
     ($$(PlutusTx.compile [||mkValidator||]) `PlutusTx.applyCode` PlutusTx.liftCode params)
     $$(PlutusTx.compile [||wrap||])
   where
-    wrap = let wrapValidator' f d r p = check $ f (PlutusTx.unsafeFromBuiltinData d) (PlutusTx.unsafeFromBuiltinData r) (PlutusTx.unsafeFromBuiltinData p) in  wrapValidator' @MajorityMultiSignDatum @MajorityMultiSignRedeemer
+    wrap = wrapValidator' @MajorityMultiSignDatum @MajorityMultiSignRedeemer
+
+type WrappedValidatorType = PlutusTx.BuiltinData -> PlutusTx.BuiltinData -> PlutusTx.BuiltinData -> ()
+
+{-# INLINABLE wrapValidator #-}
+wrapValidator'
+    :: forall d r
+    . (PlutusTx.UnsafeFromData d, PlutusTx.UnsafeFromData r)
+    => (d -> r -> Ledger.ScriptContext -> Bool)
+    -> WrappedValidatorType
+wrapValidator' f d r p = check $ f (unsafeFromBuiltinData d) (unsafeFromBuiltinData r) (unsafeFromBuiltinData p)
 
 validator :: MajorityMultiSignValidatorParams -> Scripts.Validator
 validator = TypedScripts.validatorScript . inst
