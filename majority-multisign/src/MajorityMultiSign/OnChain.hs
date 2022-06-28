@@ -131,7 +131,7 @@ inst params =
     ($$(PlutusTx.compile [||mkValidator||]) `PlutusTx.applyCode` PlutusTx.liftCode params)
     $$(PlutusTx.compile [||wrap||])
   where
-    wrap = TypedScripts.wrapValidator @MajorityMultiSignDatum @MajorityMultiSignRedeemer
+    wrap = let wrapValidator' f d r p = check $ f (unsafeFromBuiltinData d) (unsafeFromBuiltinData r) (unsafeFromBuiltinData p) in  wrapValidator' @MajorityMultiSignDatum @MajorityMultiSignRedeemer
 
 validator :: MajorityMultiSignValidatorParams -> Scripts.Validator
 validator = TypedScripts.validatorScript . inst
