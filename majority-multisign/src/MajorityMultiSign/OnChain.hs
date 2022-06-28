@@ -141,7 +141,7 @@ wrapValidator'
     . (PlutusTx.UnsafeFromData d, PlutusTx.UnsafeFromData r)
     => (d -> r -> Ledger.ScriptContext -> Bool)
     -> WrappedValidatorType
-wrapValidator' f d r p = check $ f (unsafeFromBuiltinData d) (unsafeFromBuiltinData r) (unsafeFromBuiltinData p)
+wrapValidator' f d r p = check $ f (PlutusTx.unsafeFromBuiltinData d) (PlutusTx.unsafeFromBuiltinData r) (PlutusTx.unsafeFromBuiltinData p)
 
 validator :: MajorityMultiSignValidatorParams -> Scripts.Validator
 validator = TypedScripts.validatorScript . inst
