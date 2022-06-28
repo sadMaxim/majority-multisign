@@ -43,7 +43,7 @@ import Ledger.Value (TokenName, Value)
 import Ledger.Value qualified as Value
 import Plutus.Contract as Contract
 import Plutus.Contract.Wallet (getUnspentOutput)
-import Plutus.Contracts.Scripts1 (scriptCurrencySymbol)
+--import Plutus.Contracts.Scripts1 (scriptCurrencySymbol)
 import Schema (ToSchema)
 import Prelude qualified as Haskell  
 import Prelude (Semigroup (..))
