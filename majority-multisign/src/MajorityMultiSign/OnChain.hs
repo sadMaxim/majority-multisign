@@ -10,6 +10,7 @@ module MajorityMultiSign.OnChain (
   validatorFromIdentifier,
   validatorHash,
   validatorHashFromIdentifier,
+  wrapValidator'
 ) where
 
 import Data.List.Extra (firstJust)
