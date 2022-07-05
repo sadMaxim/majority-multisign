@@ -28,6 +28,7 @@ import MajorityMultiSign.Schema (
   maximumSigners,
  )
 import Plutus.V1.Ledger.Api (Credential (ScriptCredential))
+import Plutus.V2.Ledger.Api (mkValidatorScript)
 import Plutus.V2.Ledger.Tx (TxOut (txOutValue, txOutDatum), OutputDatum (OutputDatumHash))
 import Plutus.V2.Ledger.Contexts (
   TxInInfo (txInInfoResolved),
@@ -138,13 +139,18 @@ isUnderSizeLimit (UpdateKeysAct keys) MajorityMultiSignDatum {signers} =
   traceIfFalse "Datum too large" (length signers <= maximumSigners)
     && traceIfFalse "Redeemer too large" (length keys <= maximumSigners)
 
-inst :: MajorityMultiSignValidatorParams -> TypedScripts.TypedValidator MajorityMultiSign
+inst :: MajorityMultiSignValidatorParams -> TypedScripts.Validator 
 inst params =
-  TypedScripts.mkTypedValidator @MajorityMultiSign
+  mkValidatorScript                     
     ($$(PlutusTx.compile [||mkValidator||]) `PlutusTx.applyCode` PlutusTx.liftCode params)
-    $$(PlutusTx.compile [||wrap||])
-  where
-    wrap = wrapValidator' @MajorityMultiSignDatum @MajorityMultiSignRedeemer
+
+--inst :: MajorityMultiSignValidatorParams -> TypedScripts.TypedValidator MajorityMultiSign
+--inst params =
+--  TypedScripts.mkTypedValidator @MajorityMultiSign
+--    ($$(PlutusTx.compile [||mkValidator||]) `PlutusTx.applyCode` PlutusTx.liftCode params)
+--    $$(PlutusTx.compile [||wrap||])
+--  where
+--    wrap = wrapValidator' @MajorityMultiSignDatum @MajorityMultiSignRedeemer
 
 type WrappedValidatorType = PlutusTx.BuiltinData -> PlutusTx.BuiltinData -> PlutusTx.BuiltinData -> ()
 
