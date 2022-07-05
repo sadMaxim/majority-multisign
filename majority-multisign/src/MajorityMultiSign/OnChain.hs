@@ -28,7 +28,7 @@ import MajorityMultiSign.Schema (
   maximumSigners,
  )
 import Plutus.V1.Ledger.Api (Credential (ScriptCredential))
-import Plutus.V2.Ledger.Tx (TxOut (txOutValue), OutputDatum (OutputDatumHash))
+import Plutus.V2.Ledger.Tx (TxOut (txOutValue, txOutDatum), OutputDatum (OutputDatumHash))
 import Plutus.V2.Ledger.Contexts (
   TxInInfo (txInInfoResolved),
   TxInfo (txInfoInputs),
