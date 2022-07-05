@@ -14,7 +14,7 @@ module MajorityMultiSign.OnChain (
 ) where
 
 import Data.List.Extra (firstJust)
-import Ledger (Address, Datum (Datum), PaymentPubKeyHash (unPaymentPubKeyHash),)
+import Ledger (Address, Datum (Datum), PaymentPubKeyHash (unPaymentPubKeyHash))
 import Ledger qualified
 import Ledger.Scripts qualified as Scripts
 import Ledger.Typed.Scripts qualified as TypedScripts
@@ -27,8 +27,11 @@ import MajorityMultiSign.Schema (
   getMinSigners,
   maximumSigners,
  )
-import Plutus.V1.Ledger.Api (TxOut (txOutDatumHash, txOutValue), Credential (ScriptCredential))
-import Plutus.V2.Ledger.Contexts (TxInInfo (txInInfoResolved), TxInfo (txInfoInputs),  txSignedBy, findDatumHash, ScriptContext (scriptContextTxInfo),getContinuingOutputs  )
+import Plutus.V1.Ledger.Api (Credential (ScriptCredential))
+import Plutus.V2.Ledger.Tx (TxOut (txOutValue))
+import Plutus.V2.Ledger.Contexts (TxInInfo (txInInfoResolved), TxInfo (txInfoInputs),
+txSignedBy, findDatumHash,
+ScriptContext (scriptContextTxInfo),getContinuingOutputs )
 import Plutus.V1.Ledger.Value (assetClassValueOf)
 import PlutusTx qualified
 --import PlutusTx.List.Natural qualified as Natural
