@@ -15,7 +15,6 @@ module MajorityMultiSign.OnChain (
 
 import Data.List.Extra (firstJust)
 import Ledger (Address, Datum (Datum), PaymentPubKeyHash (unPaymentPubKeyHash), txSignedBy)
---import Plutus.V2.Ledger
 import Ledger qualified
 import Ledger.Scripts qualified as Scripts
 import Ledger.Typed.Scripts qualified as TypedScripts
@@ -29,7 +28,7 @@ import MajorityMultiSign.Schema (
   maximumSigners,
  )
 import Plutus.V1.Ledger.Api (TxOut (txOutDatumHash, txOutValue), Credential (ScriptCredential))
-import Plutus.V2.Ledger.Contexts (TxInInfo (txInInfoResolved), TxInfo (txInfoInputs), findDatumHash, ScriptContext (scriptContextTxInfo)) 
+import Plutus.V2.Ledger.Contexts (TxInInfo (txInInfoResolved), TxInfo (txInfoInputs), findDatumHash, ScriptContext (scriptContextTxInfo),getContinuingOutputs  )
 import Plutus.V1.Ledger.Value (assetClassValueOf)
 import PlutusTx qualified
 --import PlutusTx.List.Natural qualified as Natural
@@ -74,7 +73,7 @@ hasCorrectToken MajorityMultiSignValidatorParams {asset} ctx expectedDatum =
   isJust result
   where
     continuing :: [TxOut]
-    continuing = Ledger.getContinuingOutputs ctx
+    continuing = getContinuingOutputs ctx
 
     checkAsset :: TxOut -> Maybe TxOut
     checkAsset txOut = if assetClassValueOf (txOutValue txOut) asset > 0 then Just txOut else Nothing
@@ -141,7 +140,7 @@ type WrappedValidatorType = PlutusTx.BuiltinData -> PlutusTx.BuiltinData -> Plut
 wrapValidator'
     :: forall d r
     . (PlutusTx.UnsafeFromData d, PlutusTx.UnsafeFromData r)
-    => (d -> r -> Ledger.ScriptContext -> Bool)
+    => (d -> r -> ScriptContext -> Bool)
     -> WrappedValidatorType
 wrapValidator' f d r p = check $ f (PlutusTx.unsafeFromBuiltinData d) (PlutusTx.unsafeFromBuiltinData r) (PlutusTx.unsafeFromBuiltinData p)
 
