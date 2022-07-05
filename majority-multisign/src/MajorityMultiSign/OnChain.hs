@@ -29,9 +29,14 @@ import MajorityMultiSign.Schema (
  )
 import Plutus.V1.Ledger.Api (Credential (ScriptCredential))
 import Plutus.V2.Ledger.Tx (TxOut (txOutValue))
-import Plutus.V2.Ledger.Contexts (TxInInfo (txInInfoResolved), TxInfo (txInfoInputs),
-txSignedBy, findDatumHash,
-ScriptContext (scriptContextTxInfo),getContinuingOutputs )
+import Plutus.V2.Ledger.Contexts (
+  TxInInfo (txInInfoResolved),
+  TxInfo (txInfoInputs),
+  txSignedBy,
+  findDatumHash,
+  ScriptContext (scriptContextTxInfo),
+  getContinuingOutputs 
+ )
 import Plutus.V1.Ledger.Value (assetClassValueOf)
 import PlutusTx qualified
 --import PlutusTx.List.Natural qualified as Natural
