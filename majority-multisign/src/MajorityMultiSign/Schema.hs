@@ -73,6 +73,8 @@ newtype MajorityMultiSignIdentifier = MajorityMultiSignIdentifier
   { asset :: AssetClass
   }
   deriving stock (Eq, Generic, Show)
+  deriving anyclass (ToSchema)
+
 
 --instance FromJSON MajorityMultiSignIdentifier where
 --  parseJSON = Aeson.withObject "MajorityMultiSignIdentifier" $
@@ -124,6 +126,7 @@ newtype MajorityMultiSignDatum = MajorityMultiSignDatum
   { signers :: [PaymentPubKeyHash]
   }
   deriving stock (Eq, Generic, Show)
+  deriving anyclass (ToSchema)
 
 instance FromJSON MajorityMultiSignDatum where
   parseJSON = Aeson.withObject "MajorityMultiSignDatum" $
@@ -141,6 +144,7 @@ data MajorityMultiSignRedeemer
   = UseSignaturesAct
   | UpdateKeysAct [PaymentPubKeyHash]
   deriving stock (Eq, Show)
+  deriving anyclass (ToSchema)
 
 PlutusTx.makeIsDataIndexed
   ''MajorityMultiSignRedeemer
@@ -153,6 +157,7 @@ data SetSignaturesParams = SetSignaturesParams
   , pubKeys :: [PaymentPubKey]
   }
   deriving stock (Eq, Generic, Show)
+  deriving anyclass (ToSchema)
 
 --instance FromJSON SetSignaturesParams where
 --  parseJSON = Aeson.withObject "SetSignaturesParams" $
