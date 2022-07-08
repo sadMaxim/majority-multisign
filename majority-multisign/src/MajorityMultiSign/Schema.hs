@@ -73,7 +73,6 @@ newtype MajorityMultiSignIdentifier = MajorityMultiSignIdentifier
   { asset :: AssetClass
   }
   deriving stock (Eq, Generic, Show)
-  deriving anyclass (ToSchema)
 
 
 --instance FromJSON MajorityMultiSignIdentifier where
