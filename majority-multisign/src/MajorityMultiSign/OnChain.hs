@@ -19,7 +19,7 @@ import Ledger qualified
 import Ledger.Scripts qualified as Scripts
 import Ledger.Typed.Scripts qualified as TypedScripts
 import MajorityMultiSign.Schema (
-  --MajorityMultiSign,
+  MajorityMultiSign,
   MajorityMultiSignDatum (MajorityMultiSignDatum, signers),
   MajorityMultiSignIdentifier (MajorityMultiSignIdentifier, asset),
   MajorityMultiSignRedeemer (UpdateKeysAct, UseSignaturesAct),
@@ -38,7 +38,6 @@ import Plutus.V2.Ledger.Contexts (
   ScriptContext (scriptContextTxInfo),
   getContinuingOutputs 
  )
-import Plutus.Script.Utils.V2.Scripts.Validators (mkUntypedValidator)
 import Plutus.V1.Ledger.Value (assetClassValueOf)
 import PlutusTx qualified
 --import PlutusTx.List.Natural qualified as Natural
@@ -97,8 +96,8 @@ hasCorrectToken MajorityMultiSignValidatorParams {asset} ctx expectedDatum =
       --let !datumHash = traceIfNothing "Continuing output does not have datum" $ txOutDatumHash assetTxOut
       let !datumHash = traceIfNothing "Continuing output does not have datum" $
              case txOutDatum assetTxOut of
-               OutputDatumHash dh -> Just dh
-               _ -> Nothing 
+	     	OutputDatumHash dh -> Just dh
+	     	_ -> Nothing 
           !expectedDatumHash =
             traceIfNothing "Datum map does not have expectedDatum" $
               findDatumHash (Datum $ PlutusTx.toBuiltinData expectedDatum) (scriptContextTxInfo ctx)
@@ -142,9 +141,8 @@ isUnderSizeLimit (UpdateKeysAct keys) MajorityMultiSignDatum {signers} =
 
 inst :: MajorityMultiSignValidatorParams -> TypedScripts.Validator 
 inst params =
-  mkValidatorScript untyped                      
-  where
-    untyped = ($$(PlutusTx.compile [||mkUntypedValidator . mkValidator||]) `PlutusTx.applyCode` PlutusTx.liftCode params)
+  mkValidatorScript                     
+    ($$(PlutusTx.compile [||mkValidator||]) `PlutusTx.applyCode` PlutusTx.liftCode params)
 
 --inst :: MajorityMultiSignValidatorParams -> TypedScripts.TypedValidator MajorityMultiSign
 --inst params =
@@ -165,11 +163,10 @@ wrapValidator'
 wrapValidator' f d r p = check $ f (PlutusTx.unsafeFromBuiltinData d) (PlutusTx.unsafeFromBuiltinData r) (PlutusTx.unsafeFromBuiltinData p)
 
 validator :: MajorityMultiSignValidatorParams -> Scripts.Validator
-validator = inst
---validator = TypedScripts.validatorScript . inst
+validator = TypedScripts.validatorScript . inst
 
 validatorHash :: MajorityMultiSignValidatorParams -> Scripts.ValidatorHash
-validatorHash = Ledger.validatorHash . inst
+validatorHash = TypedScripts.validatorHash . inst
 
 validatorAddress :: MajorityMultiSignValidatorParams -> Address
 validatorAddress = scriptAddress' . validator
