@@ -77,6 +77,7 @@ library
     , plutus-ledger
     , plutus-ledger-api
     , plutus-ledger-constraints
+    , plutus-script-utils
     --, plutus-numeric
     --, plutus-pab
     --, plutus-pretty
