@@ -38,6 +38,7 @@ import Plutus.V2.Ledger.Contexts (
   ScriptContext (scriptContextTxInfo),
   getContinuingOutputs 
  )
+import Plutus.Script.Utils.V2.Scripts.Validators (mkUntypedValidator)
 import Plutus.V1.Ledger.Value (assetClassValueOf)
 import PlutusTx qualified
 --import PlutusTx.List.Natural qualified as Natural
@@ -142,7 +143,7 @@ isUnderSizeLimit (UpdateKeysAct keys) MajorityMultiSignDatum {signers} =
 inst :: MajorityMultiSignValidatorParams -> TypedScripts.Validator 
 inst params =
   mkValidatorScript                     
-    ($$(PlutusTx.compile [||mkValidator||]) `PlutusTx.applyCode` PlutusTx.liftCode params)
+    ($$(PlutusTx.compile [||mkUntypedValidator . mkValidator||]) `PlutusTx.applyCode` PlutusTx.liftCode params)
 
 --inst :: MajorityMultiSignValidatorParams -> TypedScripts.TypedValidator MajorityMultiSign
 --inst params =
