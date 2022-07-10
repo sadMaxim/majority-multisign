@@ -97,8 +97,8 @@ hasCorrectToken MajorityMultiSignValidatorParams {asset} ctx expectedDatum =
       --let !datumHash = traceIfNothing "Continuing output does not have datum" $ txOutDatumHash assetTxOut
       let !datumHash = traceIfNothing "Continuing output does not have datum" $
              case txOutDatum assetTxOut of
-	     	OutputDatumHash dh -> Just dh
-	     	_ -> Nothing 
+	     	       OutputDatumHash dh -> Just dh
+	     	       _ -> Nothing 
           !expectedDatumHash =
             traceIfNothing "Datum map does not have expectedDatum" $
               findDatumHash (Datum $ PlutusTx.toBuiltinData expectedDatum) (scriptContextTxInfo ctx)
