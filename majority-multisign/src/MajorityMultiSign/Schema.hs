@@ -142,7 +142,7 @@ PlutusTx.makeIsDataIndexed
 data MajorityMultiSignRedeemer
   = UseSignaturesAct
   | UpdateKeysAct [PaymentPubKeyHash]
-  deriving stock (Eq, Show)
+  deriving stock (Eq, Generic, Show)
 
 PlutusTx.makeIsDataIndexed
   ''MajorityMultiSignRedeemer
