@@ -19,7 +19,7 @@ import Ledger qualified
 import Ledger.Scripts qualified as Scripts
 import Ledger.Typed.Scripts qualified as TypedScripts
 import MajorityMultiSign.Schema (
-  MajorityMultiSign,
+  --MajorityMultiSign,
   MajorityMultiSignDatum (MajorityMultiSignDatum, signers),
   MajorityMultiSignIdentifier (MajorityMultiSignIdentifier, asset),
   MajorityMultiSignRedeemer (UpdateKeysAct, UseSignaturesAct),
@@ -27,7 +27,7 @@ import MajorityMultiSign.Schema (
   getMinSigners,
   maximumSigners,
  )
-import Plutus.V1.Ledger.Api (Credential (ScriptCredential))
+--import Plutus.V1.Ledger.Api (Credential (ScriptCredential))
 import Plutus.V2.Ledger.Api (mkValidatorScript)
 import Plutus.V2.Ledger.Tx (TxOut (txOutValue, txOutDatum), OutputDatum (OutputDatumHash))
 import Plutus.V2.Ledger.Contexts (
@@ -97,8 +97,8 @@ hasCorrectToken MajorityMultiSignValidatorParams {asset} ctx expectedDatum =
       --let !datumHash = traceIfNothing "Continuing output does not have datum" $ txOutDatumHash assetTxOut
       let !datumHash = traceIfNothing "Continuing output does not have datum" $
              case txOutDatum assetTxOut of
-	     	       OutputDatumHash dh -> Just dh
-	     	       _ -> Nothing 
+      	       OutputDatumHash dh -> Just dh
+      	       _ -> Nothing 
           !expectedDatumHash =
             traceIfNothing "Datum map does not have expectedDatum" $
               findDatumHash (Datum $ PlutusTx.toBuiltinData expectedDatum) (scriptContextTxInfo ctx)
