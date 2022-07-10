@@ -164,18 +164,13 @@ wrapValidator'
 wrapValidator' f d r p = check $ f (PlutusTx.unsafeFromBuiltinData d) (PlutusTx.unsafeFromBuiltinData r) (PlutusTx.unsafeFromBuiltinData p)
 
 validator :: MajorityMultiSignValidatorParams -> Scripts.Validator
-validator = TypedScripts.validatorScript . inst
+validator = inst
 
 validatorHash :: MajorityMultiSignValidatorParams -> Scripts.ValidatorHash
-validatorHash = TypedScripts.validatorHash . inst
+validatorHash = Ledger.validatorHash . inst
 
 validatorAddress :: MajorityMultiSignValidatorParams -> Address
-validatorAddress = scriptAddress' . validator
-
-{-# INLINABLE scriptAddress' #-}
--- | The address that should be used by a transaction output locked by the given validator script.
-scriptAddress' :: Scripts.Validator -> Address
-scriptAddress' v = Ledger.Address (ScriptCredential (Scripts.validatorHash v)) Nothing
+validatorAddress = Ledger.scriptAddress . validator
 
 -- | Gets the validator from an identifier
 validatorFromIdentifier :: MajorityMultiSignIdentifier -> Scripts.Validator
