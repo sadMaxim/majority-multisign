@@ -170,7 +170,7 @@ validatorHash :: MajorityMultiSignValidatorParams -> Scripts.ValidatorHash
 validatorHash = Ledger.validatorHash . inst
 
 validatorAddress :: MajorityMultiSignValidatorParams -> Address
-validatorAddress = Ledger.scriptAddress . validator
+validatorAddress = Ledger.scriptHashAddress . validatorHash
 
 -- | Gets the validator from an identifier
 validatorFromIdentifier :: MajorityMultiSignIdentifier -> Scripts.Validator
