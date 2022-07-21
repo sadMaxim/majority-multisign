@@ -15,7 +15,7 @@
 {- | Implements a custom currency with a minting policy that allows
    the minting of a fixed amount of units.
 -}
-module Plutus.Contracts.Currency (
+module Plutus.Contracts.Currency1 (
   OneShotCurrency (..),
   CurrencySchema,
   CurrencyError (..),
