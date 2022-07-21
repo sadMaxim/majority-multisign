@@ -38,7 +38,7 @@ import Plutus.V2.Ledger.Contexts (
   ScriptContext (scriptContextTxInfo),
   getContinuingOutputs 
  )
-import Plutus.Script.Utils.V2.Scripts.Validators (mkUntypedValidator)
+import Plutus.Script.Utils.V2.Typed.Scripts.Validators (mkUntypedValidator)
 import Plutus.V1.Ledger.Value (assetClassValueOf)
 import PlutusTx qualified
 --import PlutusTx.List.Natural qualified as Natural
