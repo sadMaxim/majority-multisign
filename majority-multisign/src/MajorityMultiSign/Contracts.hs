@@ -59,7 +59,7 @@ import Plutus.Contract (
   utxosAt,
  )
 import Plutus.Contract.Types (mapError)
-import Plutus.Contracts.Currency (CurrencyError (CurContractError), currencySymbol, mintContract)
+import Plutus.Contracts.Currency1 (CurrencyError (CurContractError), currencySymbol, mintContract)
 import Plutus.V1.Ledger.Api (
   Datum (Datum, getDatum),
   Redeemer (Redeemer),
