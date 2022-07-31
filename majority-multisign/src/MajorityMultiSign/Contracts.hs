@@ -269,4 +269,4 @@ maybeToError err = maybe (throwError $ OtherContractError err) return
 -- | Extracts the datum from a ChainIndexTxOut
 getChainIndexTxOutDatum :: ChainIndexTxOut -> Maybe Datum
 getChainIndexTxOutDatum Ledger.PublicKeyChainIndexTxOut {} = Nothing
-getChainIndexTxOutDatum Ledger.ScriptChainIndexTxOut {_ciTxOutScriptDatum  = Right eDatum} = rightToMaybe eDatum
+getChainIndexTxOutDatum Ledger.ScriptChainIndexTxOut {_ciTxOutScriptDatum  =  eDatum} = rightToMaybe eDatum
